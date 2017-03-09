@@ -1,5 +1,5 @@
 {
-  "compileOnSave": false,
+  "compileOnSave": true,
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -7,10 +7,23 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "removeComments": true,
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
     "target": "es5",
     "lib": [
       "es2016",
       "dom"
     ]
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "public",
+    "typings/browser.d.ts",
+    "typings/browser/**"
+  ]
 }
