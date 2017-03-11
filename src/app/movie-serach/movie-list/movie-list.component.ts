@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
+import { Movie } from '../model/movie';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-movie-list',
   templateUrl: './movie-list.component.html',
   styleUrls: ['./movie-list.component.css']
 })
-export class MovieListComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+export class MovieListComponent {
+  @Input()
+  movies: Observable<Movie[]>;
 }

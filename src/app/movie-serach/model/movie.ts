@@ -1,3 +1,8 @@
 export interface Movie {
-  name: string;
+  title: string;
+  poster: string;
+  type: string;
+  year: string;
+  imdbID: string;
+  imdbLink: string;
 }
