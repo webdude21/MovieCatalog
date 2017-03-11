@@ -10,7 +10,7 @@ describe('MovieListItemComponent', () => {
     'title': 'Romeo Must Die',
     'year': '2000',
     'imdbID': 'tt0165929',
-    'imdbLink': "testLink",
+    'imdbLink': 'testLink',
     'type': 'movie',
     'poster': 'https://images-na.ssl-images-amazon.com/images/M/MV5BMTI5Nzg1MjA5M15BMl5BanBnXkFtZTYwNzAxNzg2._V1_SX300.jpg'
   };
