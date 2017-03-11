@@ -1,4 +1,5 @@
-import { MovieSearchService } from './movie-service.service';
+import { HttpModule } from '@angular/http';
+import { MovieSearchService } from './movie-search/movie-search.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MovieListComponent } from './movie-list/movie-list.component';
@@ -7,7 +8,8 @@ import { MovieSearchComponent } from './movie-search/movie-search.component';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    HttpModule
   ],
   providers: [MovieSearchService],
   declarations: [MovieListComponent, MovieListItemComponent, MovieSearchComponent],

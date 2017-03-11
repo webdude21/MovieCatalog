@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs/Rx';
 import { Movie } from '../model/movie';
 import { Component, Input } from '@angular/core';
 
@@ -9,5 +8,5 @@ import { Component, Input } from '@angular/core';
 })
 export class MovieListComponent {
   @Input()
-  movies: Observable<Movie[]>;
+  movies: Movie[];
 }

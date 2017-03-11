@@ -1,8 +1,8 @@
-import { Movie } from './model/movie';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
+import { Movie } from '../model/movie';
 import { Http, RequestOptions, URLSearchParams } from '@angular/http';
 import { Injectable } from '@angular/core';
-import '../utils/extensions/string.extensions';
+import '../../utils/extensions/string.extensions';
 import 'rxjs/add/operator/map';
 
 @Injectable()

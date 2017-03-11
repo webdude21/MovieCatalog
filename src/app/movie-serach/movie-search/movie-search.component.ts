@@ -1,6 +1,6 @@
+import { MovieSearchService } from './movie-search.service';
 import { Movie } from '../model/movie';
 import { Observable } from 'rxjs/Rx';
-import { MovieSearchService } from '../movie-service.service';
 import { Component } from '@angular/core';
 
 @Component({
