@@ -1,5 +1,5 @@
 import { MovieSearchModule } from './movie-serach/movie-serach.module';
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { AppComponent } from './app.component';
 
@@ -8,7 +8,7 @@ describe('AppComponent', () => {
   let app: AppComponent;
   let nativeElement: any;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent
@@ -23,17 +23,17 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     app = fixture.debugElement.componentInstance;
     nativeElement = fixture.debugElement.nativeElement;
-  }));
+  });
 
-  it('should create the app', async(() => {
+  it('should create the app', () => {
     expect(app).toBeTruthy();
-  }));
+  });
 
-  it(`should have as title 'Movie Catalog'`, async(() => {
+  it(`should have as title 'Movie Catalog'`, () => {
     expect(app.title).toEqual('Movie Catalog');
-  }));
+  });
 
-  it('should render title in a h1 tag', async(() => {
+  it('should render title in a h1 tag', () => {
     expect(nativeElement.querySelector('h1').textContent).toContain('Movie Catalog');
-  }));
+  });
 });
