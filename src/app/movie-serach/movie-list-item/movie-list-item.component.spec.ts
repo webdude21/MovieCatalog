@@ -37,9 +37,15 @@ describe('MovieListItemComponent', () => {
     expect(component.movie).toEqual(testMovie);
   }));
 
-  it('should render title in a anchor tag', async(() => {
+  it('should render title and imbd link in an anchor tag', async(() => {
     const anchorTag = nativeElement.querySelector('a');
     expect(anchorTag.textContent).toContain(testMovie.title);
     expect(anchorTag.href).toContain(testMovie.imdbLink);
+  }));
+
+  it('should render poster in an img tag with an alt attribute the title of the movie', async(() => {
+    const anchorTag = nativeElement.querySelector('img');
+    expect(anchorTag.src).toContain(testMovie.poster);
+    expect(anchorTag.alt).toContain(testMovie.title);
   }));
 });
