@@ -1,4 +1,4 @@
-import { MovieSearchModule } from './movie-serach/movie-serach.module';
+import { MovieSearchModule } from './movie-search/movie-search.module';
 import { TestBed } from '@angular/core/testing';
 
 import { AppComponent } from './app.component';

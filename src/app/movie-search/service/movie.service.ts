@@ -7,7 +7,7 @@ import '../../utils/extensions/string.extensions';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class MovieSearchService {
+export class MovieService {
   private static lowerCaseObjectKeys(obj: any) {
     for (const key of Object.keys(obj)) {
       if (!key.charAtIsLowerCase(0)) {
@@ -24,9 +24,24 @@ export class MovieSearchService {
 
   constructor(private http: Http) { }
 
+  private prepareMovieDetailRequestParams(imdbID: string) {
+    const params = new URLSearchParams();
+    params.set('i', imdbID);
+    params.set('plot', 'full');
+    params.set('tomatoes', 'true');
+    return params;
+  }
+
+  getMovieDetail(imdbID: string) {
+    return this.http
+      .get(`${environment.BASE_URL}`, new RequestOptions({ search: this.prepareMovieDetailRequestParams(imdbID) }))
+      .map(res => res.json())
+      .map(res => MovieService.lowerCaseObjectKeys(res));
+  }
+
   search(movieTitle: string): Observable<Movie[]> {
     if (!movieTitle || !movieTitle.trim()) {
-      return null;
+      return Observable.of([]);
     }
 
     const params = new URLSearchParams();
@@ -41,8 +56,8 @@ export class MovieSearchService {
         }
 
         return Search.map((movie: Movie) => {
-          MovieSearchService.lowerCaseObjectKeys(movie);
-          MovieSearchService.addImdbLink(movie);
+          MovieService.lowerCaseObjectKeys(movie);
+          MovieService.addImdbLink(movie);
           return movie;
         });
       });

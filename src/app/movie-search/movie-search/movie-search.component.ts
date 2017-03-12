@@ -1,4 +1,4 @@
-import { MovieSearchService } from './movie-search.service';
+import { MovieService } from '../service/movie.service';
 import { Movie } from '../model/movie';
 import { Observable } from 'rxjs/Rx';
 import { Component } from '@angular/core';
@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
 export class MovieSearchComponent {
   public movies: Observable<Movie[]>;
 
-  constructor(private movieSearchService: MovieSearchService) {
+  constructor(private movieSearchService: MovieService) {
   }
 
   search(searchValue: string) {

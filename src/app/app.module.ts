@@ -1,4 +1,4 @@
-import { MovieSearchModule } from './movie-serach/movie-serach.module';
+import { MovieSearchModule } from './movie-search/movie-search.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 

@@ -1,21 +1,21 @@
 import { HttpModule } from '@angular/http';
 import { Movie } from '../model/movie';
-import { MovieSearchService } from './movie-search.service';
 import { async, inject, TestBed } from '@angular/core/testing';
+import { MovieService } from './movie.service';
 
 describe('MovieServiceService.search()', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpModule],
-      providers: [MovieSearchService]
+      providers: [MovieService]
     });
   });
 
-  it('should ...', inject([MovieSearchService], (service: MovieSearchService) => {
+  it('should ...', inject([MovieService], (service: MovieService) => {
     expect(service).toBeTruthy();
   }));
 
-  it('should return an Observable<Array<Movie>>', async(inject([MovieSearchService], (service: MovieSearchService) => {
+  it('should return an Observable<Array<Movie>>', async(inject([MovieService], (service: MovieService) => {
     service.search('Die Hard').subscribe((movies: Movie[]) => {
       expect(movies.length).toBe(10);
       expect(movies[0].title).toBe('Die Hard');
@@ -25,7 +25,7 @@ describe('MovieServiceService.search()', () => {
   })));
 
   it('should return an empty Observable<Array<Movie>> when the movie can\'t be found',
-    async(inject([MovieSearchService], (service: MovieSearchService) => {
+    async(inject([MovieService], (service: MovieService) => {
       service.search('').subscribe((movies: Movie[]) => {
         expect(movies.length).toBe(0);
       });

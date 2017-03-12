@@ -1,10 +1,11 @@
+import { APP_BASE_HREF } from '@angular/common';
 import { Observable } from 'rxjs/Rx';
 import { Movie } from '../model/movie';
 import { HttpModule } from '@angular/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import * as TypeMoq from 'typemoq';
 
-import { MovieSearchService } from './movie-search.service';
+import { MovieService } from '../service/movie.service';
 import { MovieListItemComponent } from '../movie-list-item/movie-list-item.component';
 import { MovieListComponent } from '../movie-list/movie-list.component';
 import { MovieSearchComponent } from './movie-search.component';
@@ -26,7 +27,7 @@ describe('MovieSearchComponent', () => {
     { 'title': 'Romeo Must Die', 'year': '2000', 'imdbID': 'tt0165929', 'type': 'movie', 'poster': 'https://images-na.ssl-images-amazon.com/images/M/MV5BMTI5Nzg1MjA5M15BMl5BanBnXkFtZTYwNzAxNzg2._V1_SX300.jpg' }
   ];
   const observableResult = Observable.of(testData);
-  const serviceMock = TypeMoq.Mock.ofType<MovieSearchService>(MovieSearchService, TypeMoq.MockBehavior.Loose);
+  const serviceMock = TypeMoq.Mock.ofType<MovieService>(MovieService, TypeMoq.MockBehavior.Loose);
   serviceMock.setup(x => x.search(TypeMoq.It.isValue(searchTerm)))
     .returns(x => observableResult)
     .verifiable(TypeMoq.Times.once());
@@ -34,13 +35,14 @@ describe('MovieSearchComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [HttpModule],
-      providers: [{
-        provide: MovieSearchService, useValue: {
-          search: function (movieTitle: string) {
-            return serviceMock.object.search(movieTitle);
+      providers: [
+        { provide: APP_BASE_HREF, useValue: '/' }, {
+          provide: MovieService, useValue: {
+            search: function (movieTitle: string) {
+              return serviceMock.object.search(movieTitle);
+            }
           }
-        }
-      }],
+        }],
       declarations: [MovieSearchComponent, MovieListComponent, MovieListItemComponent]
     }).compileComponents();
   }));
