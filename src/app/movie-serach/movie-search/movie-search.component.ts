@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./movie-search.component.css']
 })
 export class MovieSearchComponent {
-  private movies: Observable<Movie[]>;
+  public movies: Observable<Movie[]>;
 
   constructor(private movieSearchService: MovieSearchService) {
   }

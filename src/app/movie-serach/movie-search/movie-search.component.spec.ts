@@ -25,9 +25,10 @@ describe('MovieSearchComponent', () => {
     { 'title': 'John Tucker Must Die', 'year': '2006', 'imdbID': 'tt0455967', 'type': 'movie', 'poster': 'https://images-na.ssl-images-amazon.com/images/M/MV5BMTI3MDkwODQ3OV5BMl5BanBnXkFtZTcwNTE4NDQzMQ@@._V1_SX300.jpg' },
     { 'title': 'Romeo Must Die', 'year': '2000', 'imdbID': 'tt0165929', 'type': 'movie', 'poster': 'https://images-na.ssl-images-amazon.com/images/M/MV5BMTI5Nzg1MjA5M15BMl5BanBnXkFtZTYwNzAxNzg2._V1_SX300.jpg' }
   ];
+  const observableResult = Observable.of(testData);
   const serviceMock = TypeMoq.Mock.ofType<MovieSearchService>(MovieSearchService, TypeMoq.MockBehavior.Loose);
   serviceMock.setup(x => x.search(TypeMoq.It.isValue(searchTerm)))
-    .returns(x => Observable.of(testData))
+    .returns(x => observableResult)
     .verifiable(TypeMoq.Times.once());
 
   beforeEach(async(() => {
@@ -35,13 +36,13 @@ describe('MovieSearchComponent', () => {
       imports: [HttpModule],
       providers: [{
         provide: MovieSearchService, useValue: {
-          search: (movieTitle: string) => serviceMock.object.search(movieTitle)
+          search: function (movieTitle: string) {
+            return serviceMock.object.search(movieTitle);
+          }
         }
       }],
       declarations: [MovieSearchComponent, MovieListComponent, MovieListItemComponent]
     }).compileComponents();
-
-    serviceMock.reset();
   }));
 
   beforeEach(() => {
@@ -54,8 +55,9 @@ describe('MovieSearchComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('the component search should call the MovieSearchService.search() method', () => {
+  it('movies should be populated after the call to the search method', () => {
     component.search('Die Hard');
+    expect(component.movies).toEqual(observableResult);
     serviceMock.verifyAll();
   });
 });
