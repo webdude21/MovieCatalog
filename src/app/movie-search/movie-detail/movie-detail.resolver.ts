@@ -9,6 +9,6 @@ import { Injectable } from '@angular/core';
 export class MovieDetailResolver implements Resolve<MovieDetail> {
   constructor(private movieService: MovieService) { }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<MovieDetail> {
-    return this.movieService.getMovieDetail(route.params.id);
+    return this.movieService.getMovieDetail(route.params['id']);
   }
 }
