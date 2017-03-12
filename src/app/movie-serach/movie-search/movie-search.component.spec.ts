@@ -1,7 +1,8 @@
 import { Observable } from 'rxjs/Rx';
 import { Movie } from '../model/movie';
 import { HttpModule } from '@angular/http';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import * as TypeMoq from 'typemoq';
 
 import { MovieSearchService } from './movie-search.service';
 import { MovieListItemComponent } from '../movie-list-item/movie-list-item.component';
@@ -11,6 +12,7 @@ import { MovieSearchComponent } from './movie-search.component';
 describe('MovieSearchComponent', () => {
   let component: MovieSearchComponent;
   let fixture: ComponentFixture<MovieSearchComponent>;
+  const searchTerm = 'Die Hard';
   const testData = <Movie[]>[
     { 'title': 'Die Hard', 'year': '1988', 'imdbID': 'tt0095016', 'type': 'movie', 'poster': 'https://images-na.ssl-images-amazon.com/images/M/MV5BMzNmY2IwYzAtNDQ1NC00MmI4LThkOTgtZmVhYmExOTVhMWRkXkEyXkFqcGdeQXVyMTk5NDA3Nw@@._V1_SX300.jpg' },
     { 'title': 'Live Free or Die Hard', 'year': '2007', 'imdbID': 'tt0337978', 'type': 'movie', 'poster': 'https://images-na.ssl-images-amazon.com/images/M/MV5BNDQxMDE1OTg4NV5BMl5BanBnXkFtZTcwMTMzOTQzMw@@._V1_SX300.jpg' },
@@ -23,23 +25,23 @@ describe('MovieSearchComponent', () => {
     { 'title': 'John Tucker Must Die', 'year': '2006', 'imdbID': 'tt0455967', 'type': 'movie', 'poster': 'https://images-na.ssl-images-amazon.com/images/M/MV5BMTI3MDkwODQ3OV5BMl5BanBnXkFtZTcwNTE4NDQzMQ@@._V1_SX300.jpg' },
     { 'title': 'Romeo Must Die', 'year': '2000', 'imdbID': 'tt0165929', 'type': 'movie', 'poster': 'https://images-na.ssl-images-amazon.com/images/M/MV5BMTI5Nzg1MjA5M15BMl5BanBnXkFtZTYwNzAxNzg2._V1_SX300.jpg' }
   ];
-  class MockSearchService {
-    searchString: string;
-    called: boolean;
-    search(movieTitle: string): Observable<Movie[]> {
-      this.searchString = movieTitle;
-      this.called = true;
-      return Observable.of(testData);
-    }
-  }
+  const serviceMock = TypeMoq.Mock.ofType<MovieSearchService>(MovieSearchService, TypeMoq.MockBehavior.Loose);
+  serviceMock.setup(x => x.search(TypeMoq.It.isValue(searchTerm)))
+    .returns(x => Observable.of(testData))
+    .verifiable(TypeMoq.Times.once());
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [HttpModule],
-      providers: [{ provide: MovieSearchService, useClass: MockSearchService }],
+      providers: [{
+        provide: MovieSearchService, useValue: {
+          search: (movieTitle: string) => serviceMock.object.search(movieTitle)
+        }
+      }],
       declarations: [MovieSearchComponent, MovieListComponent, MovieListItemComponent]
     }).compileComponents();
 
+    serviceMock.reset();
   }));
 
   beforeEach(() => {
@@ -52,10 +54,8 @@ describe('MovieSearchComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('the component search should call the MovieSearchService.search() method',
-    async(inject([MovieSearchService], (service: MockSearchService) => {
-      component.search('Die Hard');
-      expect(service.called).toBeTruthy();
-      expect(service.searchString).toEqual('Die Hard');
-    })));
+  it('the component search should call the MovieSearchService.search() method', () => {
+    component.search('Die Hard');
+    serviceMock.verifyAll();
+  });
 });
