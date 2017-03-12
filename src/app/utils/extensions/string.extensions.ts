@@ -19,7 +19,7 @@ if (!String.prototype.lowerFirstLetter) {
 if (!String.prototype.charAtIsLowerCase) {
   String.prototype.charAtIsLowerCase = function (charIndex: number): boolean {
     if (charIndex < 0 || charIndex >= this.length) {
-      throw new Error("Character index is out of the bounds of the string!");
+      throw new Error('Character index is out of the bounds of the string!');
     }
 
     return this.charAt(charIndex).toLowerCase() === this.charAt(charIndex);

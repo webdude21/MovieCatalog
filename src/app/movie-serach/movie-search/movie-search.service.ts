@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Rx';
 import { environment } from '../../../environments/environment';
 import { Movie } from '../model/movie';
 import { Http, RequestOptions, URLSearchParams } from '@angular/http';
@@ -23,7 +24,11 @@ export class MovieSearchService {
 
   constructor(private http: Http) { }
 
-  search(movieTitle: string) {
+  search(movieTitle: string): Observable<Movie[]> {
+    if (!movieTitle || !movieTitle.trim()) {
+      return null;
+    }
+
     const params = new URLSearchParams();
     params.set('s', movieTitle);
 
