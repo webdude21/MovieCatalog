@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Rx';
 import { environment } from '../../../environments/environment';
 import { Movie } from '../model/movie';
 import { Http, RequestOptions, URLSearchParams } from '@angular/http';
@@ -30,11 +31,16 @@ export class MovieSearchService {
     return this.http
       .get(`${environment.BASE_URL}`, new RequestOptions({ search: params }))
       .map(res => res.json())
-      .map(({ Search }) => <Movie[]>Search
-        .map((movie: Movie) => {
+      .map(({ Search }: { Search?: Movie[] }) => {
+        if (!Search) {
+          return [];
+        }
+
+        return Search.map((movie: Movie) => {
           MovieSearchService.lowerCaseObjectKeys(movie);
           MovieSearchService.addImdbLink(movie);
           return movie;
-        }));
+        });
+      });
   }
 }
