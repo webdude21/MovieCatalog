@@ -24,7 +24,7 @@ describe('MovieServiceService.search()', () => {
     });
   })));
 
-  it("should return an empty Observable<Array<Movie>> when the movie can't be found",
+  it('should return an empty Observable<Array<Movie>> when the movie can\'t be found',
     async(inject([MovieSearchService], (service: MovieSearchService) => {
       service.search('').subscribe((movies: Movie[]) => {
         expect(movies.length).toBe(0);

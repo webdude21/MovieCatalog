@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs/Rx';
 import { environment } from '../../../environments/environment';
 import { Movie } from '../model/movie';
 import { Http, RequestOptions, URLSearchParams } from '@angular/http';
