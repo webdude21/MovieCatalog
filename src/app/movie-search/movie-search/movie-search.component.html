@@ -1,3 +1,2 @@
-<input #searchBox type="text">
-<button (click)="search(searchBox.value)">Search</button>
+<input #searchBox type="text" [value]="searchTerm" (change)="search(searchBox.value)">
 <app-movie-list [movies]="movies | async"></app-movie-list>

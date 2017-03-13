@@ -1,7 +1,6 @@
 import { ActivatedRoute } from '@angular/router';
 import { MovieDetail } from '../model/movie';
 import { Component, Input, OnInit } from '@angular/core';
-import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'app-movie-detail',

@@ -25,4 +25,3 @@ if (!String.prototype.charAtIsLowerCase) {
     return this.charAt(charIndex).toLowerCase() === this.charAt(charIndex);
   };
 }
-

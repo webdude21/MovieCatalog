@@ -1,3 +1,4 @@
+import { isMovieDetail } from '../../utils/type-guards';
 import { Observable } from 'rxjs/Rx';
 import { environment } from '../../../environments/environment';
 import { Movie } from '../model/movie';
@@ -36,7 +37,8 @@ export class MovieService {
     return this.http
       .get(`${environment.BASE_URL}`, new RequestOptions({ search: this.prepareMovieDetailRequestParams(imdbID) }))
       .map(res => res.json())
-      .map(res => MovieService.lowerCaseObjectKeys(res));
+      .map(res => MovieService.lowerCaseObjectKeys(res))
+      .map(res => isMovieDetail(res) ? res : null);
   }
 
   search(movieTitle: string): Observable<Movie[]> {
