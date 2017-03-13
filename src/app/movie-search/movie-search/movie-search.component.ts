@@ -1,7 +1,7 @@
+import { Observable } from 'rxjs/Rx';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MovieService } from '../service/movie.service';
 import { Movie } from '../model/movie';
-import { Observable } from 'rxjs/Rx';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MovieSearchComponent implements OnInit {
   public movies: Observable<Movie[]>;
-  public searchTerm: string;
+  public searchTerm = '';
 
   constructor(private movieSearchService: MovieService, private route: ActivatedRoute, private router: Router) {
   }

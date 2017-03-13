@@ -11,9 +11,9 @@ import { MovieSearchComponent } from './movie-search/movie-search.component';
 import { MovieDetailComponent } from './movie-detail/movie-detail.component';
 
 const movieRoutes: Routes = [
-  { path: '/search', component: MovieSearchComponent, data: { title: 'Movie search' } },
-  { path: '/movie/:id', component: MovieDetailComponent, resolve: { movieDetail: MovieDetailResolver } },
-  { path: '', redirectTo: '/search', pathMatch: 'full' },
+  { path: 'search', component: MovieSearchComponent, data: { title: 'Movie search' } },
+  { path: 'movie/:id', component: MovieDetailComponent, resolve: { movieDetail: MovieDetailResolver } },
+  { path: '', redirectTo: 'search', pathMatch: 'full' },
 ];
 
 @NgModule({

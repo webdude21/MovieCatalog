@@ -10,6 +10,6 @@ import 'rxjs/add/operator/map';
 export class MovieDetailResolver implements Resolve<MovieDetail> {
   constructor(private movieService: MovieService, private router: Router) { }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<MovieDetail> {
-    return this.movieService.getMovieDetail(route.params['id']).map(res => res ? res : this.router.navigate(['/search']));
+    return this.movieService.getMovieDetail(route.params['id']).map(res => res ? res : this.router.navigate(['search']));
   }
 }
