@@ -1,3 +1,4 @@
+import { MaterialModule } from '@angular/material';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
@@ -20,6 +21,7 @@ const movieRoutes: Routes = [
   imports: [
     RouterModule.forRoot(movieRoutes),
     CommonModule,
+    MaterialModule,
     HttpModule
   ],
   providers: [MovieService, MovieDetailResolver],

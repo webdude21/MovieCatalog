@@ -1,2 +1,4 @@
-<input #searchBox type="text" [value]="searchTerm" (change)="search(searchBox.value)">
+<md-input-container class="example-full-width">
+  <input #searchBox mdInput placeholder="Search for a movie" type="search" [value]="searchTerm" (change)="search(searchBox.value)">
+</md-input-container>
 <app-movie-list [movies]="movies | async"></app-movie-list>
