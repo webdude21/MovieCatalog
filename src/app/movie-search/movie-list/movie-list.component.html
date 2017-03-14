@@ -1,5 +1,6 @@
-<ul>
-  <li *ngFor="let movie of movies">
+<p-dataList [value]="movies" [paginator]="true" [rows]="5">
+  <p-header>Search results</p-header>
+  <template let-movie pTemplate="item">
     <app-movie-list-item [movie]="movie"></app-movie-list-item>
-  </li>
-</ul>
+  </template>
+</p-dataList>

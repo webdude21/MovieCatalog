@@ -1,8 +1,8 @@
-import { MaterialModule } from '@angular/material';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { InputTextModule, DataListModule } from 'primeng/primeng';
 
 import { MovieDetailResolver } from './movie-detail/movie-detail.resolver';
 import { MovieService } from './service/movie.service';
@@ -21,7 +21,8 @@ const movieRoutes: Routes = [
   imports: [
     RouterModule.forRoot(movieRoutes),
     CommonModule,
-    MaterialModule,
+    InputTextModule,
+    DataListModule,
     HttpModule
   ],
   providers: [MovieService, MovieDetailResolver],
