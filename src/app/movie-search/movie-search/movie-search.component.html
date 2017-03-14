@@ -1,2 +1,2 @@
 <input #searchBox type="text" pInputText  [value]="searchTerm" (change)="search(searchBox.value)"/>
-<app-movie-list [movies]="movies | async"></app-movie-list>
+<app-movie-list *ngIf="movies" [movies]="movies | async"></app-movie-list>
