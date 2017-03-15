@@ -1,3 +1,4 @@
+import { PageableEntity } from '../model/pagable-entity';
 import { isMovieDetail } from '../../utils/type-guards';
 import { Observable } from 'rxjs/Rx';
 import { environment } from '../../../environments/environment';
@@ -9,7 +10,9 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class MovieService {
-  private static lowerCaseObjectKeys(obj: any) {
+  constructor(private http: Http) { }
+
+  private lowerCaseObjectKeys(obj: any) {
     for (const key of Object.keys(obj)) {
       if (!key.charAtIsLowerCase(0)) {
         obj[key.lowerFirstLetter()] = obj[key];
@@ -19,11 +22,13 @@ export class MovieService {
     return obj;
   }
 
-  private static addImdbLink(movie: Movie) {
+  private addImdbLink(movie: Movie) {
     movie.imdbLink = `http://www.imdb.com/title/${movie.imdbID}`;
   }
 
-  constructor(private http: Http) { }
+  private getEmptyMoviePage(): Observable<PageableEntity<Movie>> {
+    return Observable.of(new PageableEntity({ first: 1, rows: 0 }, 0, []));
+  }
 
   private prepareMovieDetailRequestParams(imdbID: string) {
     const params = new URLSearchParams();
@@ -33,35 +38,46 @@ export class MovieService {
     return params;
   }
 
+  private verifyPageNumber(page: number): void {
+    if (page < 1) {
+      throw Error(`Page shouldn't be less than 1`);
+    }
+  }
+
   getMovieDetail(imdbID: string) {
     return this.http
       .get(`${environment.BASE_URL}`, new RequestOptions({ search: this.prepareMovieDetailRequestParams(imdbID) }))
       .map(res => res.json())
-      .map(res => MovieService.lowerCaseObjectKeys(res))
+      .map(res => this.lowerCaseObjectKeys(res))
       .map(res => isMovieDetail(res) ? res : null);
   }
 
-  search(movieTitle: string): Observable<Movie[]> {
+  search(movieTitle: string, page: number = 1): Observable<PageableEntity<Movie>> {
     if (!movieTitle || !movieTitle.trim()) {
-      return Observable.of([]);
+      return this.getEmptyMoviePage();
     }
+
+    this.verifyPageNumber(page);
 
     const params = new URLSearchParams();
     params.set('s', movieTitle);
+    params.set('page', page.toString(10));
 
     return this.http
       .get(`${environment.BASE_URL}`, new RequestOptions({ search: params }))
       .map(res => res.json())
-      .map(({ Search }: { Search?: Movie[] }) => {
+      .map(({ Search, totalResults }: { Search?: Movie[], totalResults: number }) => {
         if (!Search) {
-          return [];
+          return this.getEmptyMoviePage();
         }
 
-        return Search.map((movie: Movie) => {
-          MovieService.lowerCaseObjectKeys(movie);
-          MovieService.addImdbLink(movie);
+        const result = Search.map((movie: Movie) => {
+          this.lowerCaseObjectKeys(movie);
+          this.addImdbLink(movie);
           return movie;
         });
+
+        return new PageableEntity({ first: 1, rows: result.length }, totalResults, result);
       });
   }
 }

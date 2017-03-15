@@ -1,4 +1,4 @@
-<p-dataList [value]="movies" [paginator]="true" [rows]="5">
+<p-dataList [value]="movies" (onPage)="onPageChange($event)"[paginator]="true" [rows]="rows" [lazy]="true" (onLazyLoad)="onLoadData($event)" [totalRecords]="totalRecords">
   <p-header>Search results</p-header>
   <template let-movie pTemplate="item">
     <app-movie-list-item [movie]="movie"></app-movie-list-item>

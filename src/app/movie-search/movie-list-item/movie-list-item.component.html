@@ -1,24 +1,10 @@
-<div class="ui-grid ui-grid-responsive ui-fluid" style="font-size:16px;padding:20px;border-bottom:1px solid #D5D5D5;">
+<div class="ui-grid ui-grid-responsive ui-fluid">
   <div class="ui-grid-row">
-    <div class="ui-grid-col-6" style="text-align:center">
+    <div class="ui-grid-col-12 center">
       <h3><a [routerLink]="['/movie', movie.imdbID]" [href]="">{{movie.title}}</a></h3>
       <a [routerLink]="['/movie', movie.imdbID]" [href]=""><img [src]="movie.poster" [alt]="movie.title"></a>
-    </div>
-    <div class="ui-grid-col-9">
-      <div class="ui-grid ui-grid-responsive ui-fluid">
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-2">Vin: </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-2">Year: </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-2">Brand: </div>
-        </div>
-        <div class="ui-grid-row">
-          <div class="ui-grid-col-2">Color: </div>
-        </div>
-      </div>
+      <div>Year: {{movie.year}} </div>
+      <hr>
     </div>
   </div>
 </div>
