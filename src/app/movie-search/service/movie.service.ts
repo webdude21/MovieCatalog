@@ -26,8 +26,8 @@ export class MovieService {
     movie.imdbLink = `http://www.imdb.com/title/${movie.imdbID}`;
   }
 
-  private getEmptyMoviePage(): Observable<PageableEntity<Movie>> {
-    return Observable.of(new PageableEntity({ first: 1, rows: 0 }, 0, []));
+  private getEmptyMoviePage(): PageableEntity<Movie> {
+    return new PageableEntity({ first: 1, rows: 0 }, 0, []);
   }
 
   private prepareMovieDetailRequestParams(imdbID: string) {
@@ -44,17 +44,26 @@ export class MovieService {
     }
   }
 
+  private removeNonExistingPosters<T extends { poster?: string }>(movie: T): T {
+    if (movie.poster === 'N/A') {
+      movie.poster = undefined;
+    }
+
+    return movie;
+  }
+
   getMovieDetail(imdbID: string) {
     return this.http
       .get(`${environment.BASE_URL}`, new RequestOptions({ search: this.prepareMovieDetailRequestParams(imdbID) }))
       .map(res => res.json())
       .map(res => this.lowerCaseObjectKeys(res))
+      .map(res => this.removeNonExistingPosters(res))
       .map(res => isMovieDetail(res) ? res : null);
   }
 
   search(movieTitle: string, page: number = 1): Observable<PageableEntity<Movie>> {
     if (!movieTitle || !movieTitle.trim()) {
-      return this.getEmptyMoviePage();
+      return Observable.of(this.getEmptyMoviePage());
     }
 
     this.verifyPageNumber(page);
@@ -66,7 +75,7 @@ export class MovieService {
     return this.http
       .get(`${environment.BASE_URL}`, new RequestOptions({ search: params }))
       .map(res => res.json())
-      .map(({ Search, totalResults }: { Search?: Movie[], totalResults: number }) => {
+      .map(({ Search, totalResults }: { Search?: Movie[], totalResults: string }) => {
         if (!Search) {
           return this.getEmptyMoviePage();
         }
@@ -74,10 +83,11 @@ export class MovieService {
         const result = Search.map((movie: Movie) => {
           this.lowerCaseObjectKeys(movie);
           this.addImdbLink(movie);
+          this.removeNonExistingPosters(movie);
           return movie;
         });
 
-        return new PageableEntity({ first: 1, rows: result.length }, totalResults, result);
+        return new PageableEntity({ first: 1, rows: result.length }, +totalResults, result);
       });
   }
 }

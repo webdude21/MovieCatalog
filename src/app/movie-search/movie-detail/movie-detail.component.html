@@ -1,4 +1,4 @@
 <h3>Title: {{movie.title}}</h3>
 <p>Plot: {{movie.plot}}</p>
 <p>Country: {{movie.country}}</p>
-<img [src]="movie.poster" [alt]="movie.title">
+<img *ngIf="movie.poster" [src]="movie.poster" [alt]="movie.title">

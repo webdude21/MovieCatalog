@@ -32,7 +32,7 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
   }
 
   getPage(page: Page): number {
-    return page.first + page.rows / page.rows;
+    return (page.first / page.rows) + 1;
   }
 
   search(searchValue = '', page = 1, skipRedirect = false): void {

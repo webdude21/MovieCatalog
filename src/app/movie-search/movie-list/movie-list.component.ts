@@ -22,8 +22,4 @@ export class MovieListComponent {
   onLoadData(event: Page) {
     this.lazyLoad.emit(event);
   }
-
-  onPageChange(event: Page) {
-    console.log(event);
-  }
 }

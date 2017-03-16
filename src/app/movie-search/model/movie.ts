@@ -1,6 +1,6 @@
 export interface Movie {
   title: string;
-  poster: string;
+  poster?: string;
   type: string;
   year: string;
   imdbID: string;
@@ -21,7 +21,7 @@ export interface MovieDetail {
   language: string;
   country: string;
   awards: string;
-  poster: string;
+  poster?: string;
   metascore: string;
   imdbRating: string;
   imdbVotes: string;

@@ -2,7 +2,9 @@
   <div class="ui-grid-row">
     <div class="ui-grid-col-12 center">
       <h3><a [routerLink]="['/movie', movie.imdbID]" [href]="">{{movie.title}}</a></h3>
-      <a [routerLink]="['/movie', movie.imdbID]" [href]=""><img [src]="movie.poster" [alt]="movie.title"></a>
+      <div *ngIf="movie.poster">
+        <a [routerLink]="['/movie', movie.imdbID]" [href]=""><img [src]="movie.poster" [alt]="movie.title"></a>
+      </div>
       <div>Year: {{movie.year}} </div>
       <hr>
     </div>
