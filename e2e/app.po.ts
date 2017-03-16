@@ -1,3 +1,4 @@
+import { protractor } from 'protractor/built/ptor';
 import { browser, element, by } from 'protractor';
 
 export class MovieCatalogPage {
@@ -11,9 +12,7 @@ export class MovieCatalogPage {
 
   doSearch(searchTerm: string) {
     const searchField = element(by.css('app-root app-movie-search input'));
-    const searchBtn = element(by.css('app-root app-movie-search button'));
-    searchField.sendKeys(searchTerm);
-    searchBtn.click();
+    searchField.sendKeys(searchTerm, protractor.Key.ENTER);
   }
 
   getResultMovieTitle(index: number) {
