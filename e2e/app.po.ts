@@ -5,6 +5,14 @@ export class MovieCatalogPage {
   private static movieList = 'app-root app-movie-search app-movie-list';
   private static movieListItems = `${MovieCatalogPage.movieList} ul li`;
 
+  private getMovieTitleLink(index = 1) {
+    return element
+      .all(by.css(MovieCatalogPage.movieListItems))
+      .get(index - 1)
+      .all(by.css('app-movie-list-item a'))
+      .get(0);
+  }
+
   navigateTo() {
     return browser.get('/');
   }
@@ -19,12 +27,11 @@ export class MovieCatalogPage {
   }
 
   getResultMovieTitle(index: number) {
-    return element
-      .all(by.css(MovieCatalogPage.movieListItems))
-      .get(index - 1)
-      .all(by.css('app-movie-list-item a'))
-      .get(0)
-      .getText();
+    return this.getMovieTitleLink().getText();
+  }
+
+  goToDetailPageForMovie(index: number) {
+    this.getMovieTitleLink(index).click();
   }
 
   getMoviesResultCount() {

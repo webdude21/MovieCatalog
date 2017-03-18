@@ -19,6 +19,13 @@ describe('movie-catalog App', () => {
     expect(page.getResultMovieTitle(1)).toEqual('Die Hard');
   });
 
+  it('clicking on a movie navigates to the movie detail page', () => {
+    page.doSearch('Die hard');
+    page.goToDetailPageForMovie(1);
+    browser.waitForAngular();
+    expect(browser.getCurrentUrl()).toContain('movie/tt0095016');
+  });
+
   it('clicking on a page number in the paginator navigates to another page in the search results', () => {
     page.doSearch('Die hard');
     page.goToPage(2);
