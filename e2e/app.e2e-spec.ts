@@ -1,5 +1,5 @@
 import { browser } from 'protractor/built';
-import { MovieCatalogPage } from './app.po';
+import { MovieCatalogPage } from './app.movie-catalog-page';
 
 describe('movie-catalog App', () => {
   let page: MovieCatalogPage;
