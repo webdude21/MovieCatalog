@@ -1,3 +1,4 @@
+import { APP_BASE_HREF } from '@angular/common';
 import { MovieSearchModule } from './movie-search/movie-search.module';
 import { TestBed } from '@angular/core/testing';
 
@@ -16,7 +17,7 @@ describe('AppComponent', () => {
       imports: [
         MovieSearchModule
       ],
-      providers: [],
+      providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);
