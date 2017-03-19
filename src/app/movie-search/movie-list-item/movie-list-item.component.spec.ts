@@ -1,3 +1,8 @@
+import { DataListModule } from 'primeng/primeng';
+import { RouterTestingModule } from '@angular/router/testing';
+import { APP_BASE_HREF } from '@angular/common';
+import { Observable } from 'rxjs/Rx';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MovieListItemComponent } from './movie-list-item.component';
@@ -7,17 +12,24 @@ describe('MovieListItemComponent', () => {
   let fixture: ComponentFixture<MovieListItemComponent>;
   let nativeElement: any;
   const testMovie = {
-    'title': 'Romeo Must Die',
-    'year': '2000',
-    'imdbID': 'tt0165929',
-    'imdbLink': 'testLink',
-    'type': 'movie',
-    'poster': 'https://images-na.ssl-images-amazon.com/images/M/MV5BMTI5Nzg1MjA5M15BMl5BanBnXkFtZTYwNzAxNzg2._V1_SX300.jpg'
+    title: 'Romeo Must Die',
+    year: '2000',
+    imdbID: 'tt0165929',
+    imdbLink: 'testLink',
+    type: 'movie',
+    poster: 'https://images-na.ssl-images-amazon.com/images/M/MV5BMTI5Nzg1MjA5M15BMl5BanBnXkFtZTYwNzAxNzg2._V1_SX300.jpg'
   };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [MovieListItemComponent]
+      imports: [RouterTestingModule.withRoutes([]), RouterModule, DataListModule],
+      declarations: [MovieListItemComponent],
+      providers: [{ provide: APP_BASE_HREF, useValue: '/' }, {
+        provide: ActivatedRoute,
+        useValue: {
+          params: Observable.of({ id: testMovie.imdbID })
+        }
+      }]
     }).compileComponents();
   }));
 
@@ -40,7 +52,7 @@ describe('MovieListItemComponent', () => {
   it('should render title and imbd link in an anchor tag', async(() => {
     const anchorTag = nativeElement.querySelector('a');
     expect(anchorTag.textContent).toContain(testMovie.title);
-    expect(anchorTag.href).toContain(testMovie.imdbLink);
+    expect(anchorTag.href).toContain(testMovie.imdbID);
   }));
 
   it('should render poster in an img tag with an alt attribute the title of the movie', async(() => {
