@@ -1,4 +1,3 @@
-import { DataListModule } from 'primeng/primeng';
 import { RouterTestingModule } from '@angular/router/testing';
 import { APP_BASE_HREF } from '@angular/common';
 import { Observable } from 'rxjs/Rx';
@@ -22,7 +21,7 @@ describe('MovieListItemComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([]), RouterModule, DataListModule],
+      imports: [RouterTestingModule.withRoutes([]), RouterModule],
       declarations: [MovieListItemComponent],
       providers: [{ provide: APP_BASE_HREF, useValue: '/' }, {
         provide: ActivatedRoute,

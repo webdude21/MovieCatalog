@@ -16,7 +16,7 @@ describe('MovieServiceService.search()', () => {
     expect(service).toBeTruthy();
   }));
 
-  it('should return an Observable<Array<Movie>>', async(inject([MovieService], (service: MovieService) => {
+  it('should return an Observable<PageableEntity<Movie>>', async(inject([MovieService], (service: MovieService) => {
     service.search('Die Hard').subscribe((pageableMovies: PageableEntity<Movie>) => {
       const movies = pageableMovies.entities;
       expect(movies.length).toBe(10);
@@ -26,10 +26,11 @@ describe('MovieServiceService.search()', () => {
     });
   })));
 
-  it('should return an empty Observable<Array<Movie>> when the movie can\'t be found',
+  it('should return an empty Observable<PageableEntity<Movie>> when the movie can\'t be found',
     async(inject([MovieService], (service: MovieService) => {
-      service.search('').subscribe((pageableMovies: PageableEntity<Movie>) => {
-        expect(pageableMovies.entities.length).toBe(0);
-      });
+      service.search('')
+        .subscribe((pageableMovies: PageableEntity<Movie>) => {
+          expect(pageableMovies.entities.length).toBe(0);
+        });
     })));
 });

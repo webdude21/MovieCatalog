@@ -5,6 +5,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Movie } from '../model/movie';
 import { MovieListItemComponent } from '../movie-list-item/movie-list-item.component';
 import { MovieListComponent } from './movie-list.component';
+import { DataListModule } from "primeng/primeng";
 
 describe('MovieListComponent', () => {
   let component: MovieListComponent;
@@ -24,7 +25,7 @@ describe('MovieListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule, DataListModule],
       declarations: [MovieListComponent, MovieListItemComponent],
       providers: [RouterTestingModule, { provide: APP_BASE_HREF, useValue: '/' }]
     }).compileComponents();

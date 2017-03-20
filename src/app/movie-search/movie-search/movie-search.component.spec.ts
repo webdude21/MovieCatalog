@@ -1,7 +1,7 @@
-import { InputTextModule } from 'primeng';
+import { InputTextModule } from 'primeng/primeng';
 import { RouterTestingModule } from '@angular/router/testing';
 import { RouterModule } from '@angular/router';
-import { APP_BASE_HREF, CommonModule } from '@angular/common';
+import { APP_BASE_HREF } from '@angular/common';
 import { Observable } from 'rxjs/Rx';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import * as TypeMoq from 'typemoq';
@@ -71,7 +71,7 @@ describe('MovieSearchComponent', () => {
 
   it('movies should be populated after the call to the search method', () => {
     component.search('Die Hard');
-    expect(component.movies).toEqual(observableResult);
+    expect(component.movies).toEqual(testData.entities);
     serviceMock.verifyAll();
   });
 });
