@@ -14,6 +14,7 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
   public rows = 10;
   public totalRecords = 0;
   public searchTerm = '';
+  public currentPage = 1;
   private searchFieldRef: HTMLInputElement;
   private searchTermSub: Subscription;
   private movieSearchSub: Subscription;
@@ -27,7 +28,6 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
       .fromEvent(this.domRef.nativeElement, 'keyup')
       .debounce(() => Observable.interval(1000))
       .map(x => this.searchFieldRef.value)
-      .distinctUntilChanged()
       .subscribe(searchTerm => this.search(searchTerm));
 
     this.route.queryParams.subscribe(params => this.search(params['for']));
@@ -37,12 +37,8 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
     this.search(this.searchTerm, this.getPage(event), true);
   }
 
-  getPage(page: Page): number {
-    return (page.first / page.rows) + 1;
-  }
-
   search(searchValue = '', page = 1, skipRedirect = false): void {
-    if (!searchValue) {
+    if (!searchValue || this.isTheSameQuery(searchValue, page)) {
       return;
     }
 
@@ -57,6 +53,7 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
         this.totalRecords = pageableMovies.totalRecords;
         this.movies = pageableMovies.entities;
         this.rows = pageableMovies.page.rows;
+        this.currentPage = page;
       });
 
     if (!skipRedirect) {
@@ -66,6 +63,14 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.unSubscribe(this.movieSearchSub, this.searchTermSub);
+  }
+
+  private getPage(page: Page): number {
+    return (page.first / page.rows) + 1;
+  }
+
+  private isTheSameQuery(searchValue: string, page: number): boolean {
+    return this.searchTerm === searchValue && page === this.currentPage;
   }
 
   private unSubscribe(...subs: Subscription[]): void {
