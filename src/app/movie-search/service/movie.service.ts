@@ -52,6 +52,17 @@ export class MovieService {
     return movie;
   }
 
+  private retryStrategy(errors: Observable<any>): Observable<any> {
+    const timesToRetry = 3;
+    const timeBetweenRetries = 1000;
+    const inc = (x: number) => x + 1;
+
+    return errors
+      .scan(inc, 0)
+      .takeWhile(acc => acc < timesToRetry)
+      .delay(timeBetweenRetries);
+  }
+
   getMovieDetail(imdbID: string) {
     return this.http
       .get(`${environment.BASE_URL}`, new RequestOptions({ search: this.prepareMovieDetailRequestParams(imdbID) }))
@@ -88,6 +99,7 @@ export class MovieService {
         });
 
         return new PageableEntity({ first: 1, rows: result.length }, +totalResults, result);
-      });
+      })
+      .retryWhen(this.retryStrategy);
   }
 }

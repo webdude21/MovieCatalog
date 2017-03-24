@@ -1,9 +1,11 @@
+import { MessageService } from '../../message.service';
 import { Observable, Subscription } from 'rxjs/Rx';
 import { Page } from '../model/page';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MovieService } from '../service/movie.service';
 import { Movie } from '../model/movie';
 import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { Message } from '../../model/message';
 
 @Component({
   selector: 'app-movie-search',
@@ -19,8 +21,12 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
   private searchTermSub: Subscription;
   private movieSearchSub: Subscription;
 
-  constructor(private movieSearchService: MovieService, private route: ActivatedRoute, private router: Router, public domRef: ElementRef) {
-  }
+  constructor(
+    private movieSearchService: MovieService,
+    private messageService: MessageService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private domRef: ElementRef) { }
 
   ngOnInit(): void {
     this.searchFieldRef = this.domRef.nativeElement.firstElementChild;
@@ -47,6 +53,7 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
       .search(searchValue, page)
       .subscribe(pageableMovies => {
         if (!pageableMovies || pageableMovies.totalRecords <= 0) {
+          this.warnAboutNoResult(searchValue);
           return;
         }
 
@@ -63,6 +70,10 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.unSubscribe(this.movieSearchSub, this.searchTermSub);
+  }
+
+  private warnAboutNoResult(searchTerm: string): void {
+    this.messageService.addMessage(new Message('No such movie', `No movie named ${searchTerm} was found.`, 'warn'));
   }
 
   private getPage(page: Page): number {

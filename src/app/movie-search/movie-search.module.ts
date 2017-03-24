@@ -1,7 +1,6 @@
-import { GlobalErrorHandler } from './error-handler/global-error-handler';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InputTextModule, DataListModule } from 'primeng/primeng';
 
@@ -26,7 +25,7 @@ const movieRoutes: Routes = [
     DataListModule,
     HttpModule
   ],
-  providers: [MovieService, MovieDetailResolver, { provide: ErrorHandler, useClass: GlobalErrorHandler }],
+  providers: [MovieService, MovieDetailResolver],
   declarations: [MovieListComponent, MovieListItemComponent, MovieSearchComponent, MovieDetailComponent],
   exports: [MovieListComponent, MovieListItemComponent, MovieSearchComponent, RouterModule]
 })

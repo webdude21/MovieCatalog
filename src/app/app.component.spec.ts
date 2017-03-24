@@ -1,3 +1,4 @@
+import { MessagesModule } from 'primeng/primeng';
 import { APP_BASE_HREF } from '@angular/common';
 import { MovieSearchModule } from './movie-search/movie-search.module';
 import { TestBed } from '@angular/core/testing';
@@ -15,6 +16,7 @@ describe('AppComponent', () => {
         AppComponent
       ],
       imports: [
+        MessagesModule,
         MovieSearchModule
       ],
       providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
