@@ -1,3 +1,4 @@
+import { MessageService } from '../../message.service';
 import { InputTextModule } from 'primeng/primeng';
 import { RouterTestingModule } from '@angular/router/testing';
 import { RouterModule } from '@angular/router';
@@ -50,7 +51,7 @@ describe('MovieSearchComponent', () => {
         RouterModule,
         InputTextModule,
         DataListModule],
-      providers: [{ provide: APP_BASE_HREF, useValue: '/' }, {
+      providers: [MessageService, { provide: APP_BASE_HREF, useValue: '/' }, {
         provide: MovieService, useValue: {
           search: (movieTitle: string) => serviceMock.object.search(movieTitle)
         }

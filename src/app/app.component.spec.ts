@@ -1,3 +1,4 @@
+import { MessageService } from './message.service';
 import { MessagesModule } from 'primeng/primeng';
 import { APP_BASE_HREF } from '@angular/common';
 import { MovieSearchModule } from './movie-search/movie-search.module';
@@ -19,7 +20,7 @@ describe('AppComponent', () => {
         MessagesModule,
         MovieSearchModule
       ],
-      providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
+      providers: [MessageService, { provide: APP_BASE_HREF, useValue: '/' }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);
