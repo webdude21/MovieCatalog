@@ -14,6 +14,12 @@ export class MovieService {
 
   private lowerCaseObjectKeys(obj: any) {
     for (const key of Object.keys(obj)) {
+
+      // in case it's a nested object, do it's keys as well
+      if (typeof obj[key] === 'object') {
+        this.lowerCaseObjectKeys(obj[key]);
+      }
+
       if (!key.charAtIsLowerCase(0)) {
         obj[key.lowerFirstLetter()] = obj[key];
         delete obj[key];
@@ -34,7 +40,6 @@ export class MovieService {
     const params = new URLSearchParams();
     params.set('i', imdbID);
     params.set('plot', 'full');
-    params.set('tomatoes', 'true');
     return params;
   }
 

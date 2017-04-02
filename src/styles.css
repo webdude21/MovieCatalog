@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+.ui-rating{
+  display: inline;
+}
+
+app-movie-detail .ui-rating a {
+  color: gold;
+  cursor: default;
+  text-decoration: none;
+}

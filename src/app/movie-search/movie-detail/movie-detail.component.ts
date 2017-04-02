@@ -13,6 +13,6 @@ export class MovieDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.data.subscribe(({movieDetail}: { movieDetail: MovieDetail }) => this.movie = movieDetail);
+    this.route.data.subscribe(({ movieDetail }: { movieDetail: MovieDetail }) => this.movie = movieDetail);
   }
 }

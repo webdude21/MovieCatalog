@@ -1,8 +1,9 @@
+import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InputTextModule, DataListModule } from 'primeng/primeng';
+import { InputTextModule, DataListModule, RatingModule } from 'primeng/primeng';
 
 import { MovieDetailResolver } from './movie-detail/movie-detail.resolver';
 import { MovieService } from './service/movie.service';
@@ -23,7 +24,9 @@ const movieRoutes: Routes = [
     CommonModule,
     InputTextModule,
     DataListModule,
-    HttpModule
+    RatingModule,
+    HttpModule,
+    FormsModule,
   ],
   providers: [MovieService, MovieDetailResolver],
   declarations: [MovieListComponent, MovieListItemComponent, MovieSearchComponent, MovieDetailComponent],

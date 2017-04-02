@@ -1,3 +1,5 @@
+import { Rating } from './rating';
+
 export interface Movie {
   title: string;
   poster?: string;
@@ -8,6 +10,7 @@ export interface Movie {
 }
 
 export interface MovieDetail {
+  ratings: Rating[],
   title: string;
   year: string;
   rated: string;

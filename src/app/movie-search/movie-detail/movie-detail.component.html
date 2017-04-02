@@ -1,4 +1,6 @@
 <h3>Title: {{movie.title}}</h3>
 <p>Plot: {{movie.plot}}</p>
+<span>Rating: </span>
+<p-rating [(ngModel)]="movie.imdbRating" readonly="true" stars="10" [cancel]="false"></p-rating>
 <p>Country: {{movie.country}}</p>
 <img *ngIf="movie.poster" [src]="movie.poster" [alt]="movie.title">
