@@ -57,6 +57,16 @@ export class MovieService {
     return movie;
   }
 
+  private convertMovieProps(obj: any) {
+    const ratingKey = 'imdbRating';
+
+    if (ratingKey in obj) {
+      obj[ratingKey] = +obj[ratingKey];
+    }
+
+    return obj;
+  }
+
   private retryStrategy(errors: Observable<any>): Observable<any> {
     const timesToRetry = 3;
     const timeBetweenRetries = 1000;
@@ -74,6 +84,7 @@ export class MovieService {
       .map(res => res.json())
       .map(res => this.lowerCaseObjectKeys(res))
       .map(res => this.removeNonExistingPosters(res))
+      .map(res => this.convertMovieProps(res))
       .map(res => isMovieDetail(res) ? res : null);
   }
 

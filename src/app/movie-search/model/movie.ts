@@ -26,7 +26,7 @@ export interface MovieDetail {
   awards: string;
   poster?: string;
   metascore: string;
-  imdbRating: string;
+  imdbRating: number;
   imdbVotes: string;
   imdbID: string;
   type: string;
