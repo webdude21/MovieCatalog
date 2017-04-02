@@ -32,7 +32,7 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
     this.searchFieldRef = this.domRef.nativeElement.firstElementChild;
     this.searchTermSub = Observable
       .fromEvent(this.domRef.nativeElement, 'keyup')
-      .debounce(() => Observable.interval(1000))
+      .debounce(() => Observable.interval(200))
       .map(x => this.searchFieldRef.value)
       .subscribe(searchTerm => this.search(searchTerm));
 
