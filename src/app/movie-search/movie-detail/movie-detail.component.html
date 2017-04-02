@@ -2,5 +2,9 @@
 <p>Plot: {{movie.plot}}</p>
 <span>Rating: </span>
 <p-rating [(ngModel)]="movie.imdbRating" readonly="true" stars="10" [cancel]="false"></p-rating>
+<div *ngFor="let rating of movie.ratings">
+  {{rating.source}}: {{rating.value}}
+</div>
 <p>Country: {{movie.country}}</p>
+<p>Year: {{movie.year}}</p>
 <img *ngIf="movie.poster" [src]="movie.poster" [alt]="movie.title">
