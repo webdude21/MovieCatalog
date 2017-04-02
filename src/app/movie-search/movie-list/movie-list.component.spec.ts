@@ -5,12 +5,13 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Movie } from '../model/movie';
 import { MovieListItemComponent } from '../movie-list-item/movie-list-item.component';
 import { MovieListComponent } from './movie-list.component';
-import { DataListModule } from "primeng/primeng";
+import { DataListModule } from 'primeng/primeng';
 
 describe('MovieListComponent', () => {
   let component: MovieListComponent;
   let fixture: ComponentFixture<MovieListComponent>;
   const testData = <Movie[]>[
+    // tslint:disable:max-line-length
     { 'title': 'Die Hard', 'year': '1988', 'imdbID': 'tt0095016', 'type': 'movie', 'poster': 'https://images-na.ssl-images-amazon.com/images/M/MV5BMzNmY2IwYzAtNDQ1NC00MmI4LThkOTgtZmVhYmExOTVhMWRkXkEyXkFqcGdeQXVyMTk5NDA3Nw@@._V1_SX300.jpg' },
     { 'title': 'Live Free or Die Hard', 'year': '2007', 'imdbID': 'tt0337978', 'type': 'movie', 'poster': 'https://images-na.ssl-images-amazon.com/images/M/MV5BNDQxMDE1OTg4NV5BMl5BanBnXkFtZTcwMTMzOTQzMw@@._V1_SX300.jpg' },
     { 'title': 'Die Hard with a Vengeance', 'year': '1995', 'imdbID': 'tt0112864', 'type': 'movie', 'poster': 'https://images-na.ssl-images-amazon.com/images/M/MV5BZjI0ZWFiMmQtMjRlZi00ZmFhLWI4NmYtMjQ5YmY0MzIyMzRiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg' },
