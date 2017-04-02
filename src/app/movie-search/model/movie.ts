@@ -10,7 +10,7 @@ export interface Movie {
 }
 
 export interface MovieDetail {
-  ratings: Rating[],
+  ratings: Rating[];
   title: string;
   year: string;
   rated: string;
