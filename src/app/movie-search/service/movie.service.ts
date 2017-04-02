@@ -61,7 +61,7 @@ export class MovieService {
     const ratingKey = 'imdbRating';
 
     if (ratingKey in obj) {
-      obj[ratingKey] = +obj[ratingKey];
+      obj[ratingKey] = Math.round(obj[ratingKey]);
     }
 
     return obj;
